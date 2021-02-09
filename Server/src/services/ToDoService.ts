@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import todoType from '../types/todo';
-import generateInitialToDos from '../helpers/generator';
+import initialToDos from '../helpers/generator';
 
 export class ToDoService {
     private todos: Array<todoType>;
 
     constructor() {
-        this.todos = generateInitialToDos();
+        this.todos = initialToDos;
         this.get_all_todos = this.get_all_todos.bind(this);
         this.add_todo = this.add_todo.bind(this);
         this.edit_todo_title = this.edit_todo_title.bind(this);

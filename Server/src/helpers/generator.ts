@@ -17,4 +17,4 @@ const generateInitialToDos = (): Array<todoType> => {
     ];
 }
 
-export default generateInitialToDos;
+export default generateInitialToDos();
