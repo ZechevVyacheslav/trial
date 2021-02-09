@@ -1,28 +1,27 @@
 import { Router } from 'express';
-import { Request, Response } from 'express';
-
-type todoType = {
-    id: number;
-    title: string;
-};
+import { ToDoService } from '../services/ToDoService';
 
 export class ToDoController {
     public router: Router;
-    private todos: Array<todoType>;
+    private todoService: ToDoService;
 
     constructor() {
         this.router = Router();
-        this.todos = [
-            { id: 1, title: 'Create server' },
-            { id: 2, title: 'Create js library' },
-            { id: 3, title: 'Create web client' },
-        ];
+        this.todoService = new ToDoService();
         this.attachEndpoints();
     }
 
     private attachEndpoints() {
-        this.router.get('/', (req: Request, res: Response) => {
-            res.json(this.todos);
-        });
+        this.router.get('/', this.todoService.get_all_todos);
+
+        this.router.post('/', this.todoService.add_todo);
+
+        this.router.patch('/title', this.todoService.edit_todo_title);
+
+        this.router.patch('/done', this.todoService.edit_todo_status);
+
+        this.router.delete('/:id', this.todoService.delete_single_todo);
+
+        this.router.delete('/', this.todoService.delete_all_todos);
     }
 }
